@@ -53,8 +53,18 @@ fn differ_by(s1: String, s2: String) -> i32 {
     return -1;
 }
 
-fn common_chars(s1: String, unmatched_index: usize) -> String {
-    return String::from("hello");
+// remove a single character from a String at the given idx
+fn remove_chat_at(s: String, idx: usize) -> String {
+    match idx {
+        x if idx > s.len() => panic!("Index is greater than the size of the string"),
+        x if idx == s.len() => s[0..s.len() - 1].to_owned(),
+        0 => s[1..s.len()].to_owned(),
+        n => {
+            let mut new_string = s[0..n].to_owned();
+            new_string.push_str(&s[n + 1..s.len()]);
+            return new_string;
+        }
+    }
 }
 
 pub fn day2_problem1(input_file: String) -> i32 {
@@ -89,11 +99,34 @@ pub fn day2_problem1(input_file: String) -> i32 {
 
 pub fn day2_problem2(input_file: String) -> i32 {
     let input_data = read_input_from_file(input_file);
-    let inputs: Vec<&str> = input_data.split('\n').collect();
+    let inputs: Vec<String> = input_data.split('\n').map(|s| s.to_string()).collect();
 
     let hashMap: HashMap<String, i32> = HashMap::new();
 
-    for i in 0..(inputs.len() - 1) {}
+    let matches: Vec<Vec<String>> = inputs
+        .to_owned()
+        .into_iter()
+        .map(|item1| {
+            let im: Vec<String> = inputs
+                .to_owned()
+                .into_iter()
+                .filter(
+                    |item2| match differ_by(item1.to_owned(), item2.to_owned()) {
+                        -1 => false,
+                        n => true,
+                    },
+                )
+                .collect();
+            return im;
+        })
+        .collect();
+
+    for i in matches {
+        println!("Length: {}", i.len());
+        for j in i {
+            println!("val: {}", j);
+        }
+    }
 
     return 0;
 }
