@@ -58,15 +58,14 @@ fn p2(input: String) -> i32 {
 fn main() {
     let filename = "puzzle1-input.txt";
     let puzzle_input_2 = "puzzle-input-2.txt";
-    // println!("Solution to problem 1 = {}", p1(String::from(filename)));
-    // println!("Solution to problem 2 = {}", p2(String::from(filename)));
-    // println!(
-    //     "Solution to problem 3 = {}",
-    //     day2::day2_problem1(String::from(puzzle_input_2))
-    // );
-    // println!(
-    //     "Solution to problem 3 = {}",
-    //     day2::day2_problem2(String::from(puzzle_input_2))
-    // );
-    day2::day2_problem2(String::from(puzzle_input_2));
+    println!("Solution to problem 1 = {}", p1(String::from(filename)));
+    println!("Solution to problem 2 = {}", p2(String::from(filename)));
+    println!(
+        "Solution to problem 3 = {}",
+        day2::day2_problem1(String::from(puzzle_input_2))
+    );
+    println!(
+        "Solution to problem 4 = {}",
+        day2::day2_problem2(String::from(puzzle_input_2))
+    );
 }
