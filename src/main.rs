@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::prelude::*;
 
 mod day2;
+mod day3;
 
 fn read_input_from_file(filename: String) -> String {
     let mut file_contents = String::new();
@@ -58,14 +59,19 @@ fn p2(input: String) -> i32 {
 fn main() {
     let filename = "puzzle1-input.txt";
     let puzzle_input_2 = "puzzle-input-2.txt";
-    println!("Solution to problem 1 = {}", p1(String::from(filename)));
-    println!("Solution to problem 2 = {}", p2(String::from(filename)));
-    println!(
-        "Solution to problem 3 = {}",
-        day2::day2_problem1(String::from(puzzle_input_2))
-    );
-    println!(
-        "Solution to problem 4 = {}",
-        day2::day2_problem2(String::from(puzzle_input_2))
-    );
+    let token = "#123 @ 3,2: 5x4";
+
+    let c1 = day3::extract_data(String::from(token));
+    let c2 = day3::extract_data(String::from(token));
+
+    // println!("Solution to problem 1 = {}", p1(String::from(filename)));
+    // println!("Solution to problem 2 = {}", p2(String::from(filename)));
+    // println!(
+    //     "Solution to problem 3 = {}",
+    //     day2::day2_problem1(String::from(puzzle_input_2))
+    // );
+    // println!(
+    //     "Solution to problem 4 = {}",
+    //     day2::day2_problem2(String::from(puzzle_input_2))
+    // );
 }
