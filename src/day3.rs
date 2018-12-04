@@ -89,4 +89,47 @@ pub fn solve_problem_1(input: &str) -> i32 {
     return sum;
 }
 
+fn does_overlap(grid: &[[i32; 1001]; 1001], c: &Claim) -> bool {
+    let mut overlapped = false;
+
+    for i in c.offset_x + 1..=c.width + c.offset_x {
+        for j in c.offset_y + 1..=c.height + c.offset_y {
+            if grid[i][j] == 1 {
+                continue;
+            } else {
+                overlapped = true;
+                return overlapped;
+            }
+        }
+    }
+
+    return overlapped;
+}
+
+pub fn solve_problem_2(input: &str) -> String {
+    let inputs: Vec<Claim> = read_input_from_file(input)
+        .split("\n")
+        .map(|claim| extract_data(claim.to_string()))
+        .collect();
+    let (len, mut sum) = (inputs.len(), 0);
+    let mut area: [[i32; 1001]; 1001] = [[0; 1001]; 1001];
+    for i in 0..len {
+        let cc = &inputs[i];
+
+        for j in cc.offset_x + 1..=cc.width + cc.offset_x {
+            for k in cc.offset_y + 1..=cc.height + cc.offset_y {
+                area[j][k] = area[j][k] + 1;
+            }
+        }
+    }
+
+    for i in 0..len {
+        let cc = &inputs[i];
+        if !does_overlap(&area, cc) {
+            return cc.id.to_string();
+        }
+    }
+    String::from("Not Found")
+}
+
 // pub fn get_dimension(claim: String) -> HashMap<String, i32> {}
