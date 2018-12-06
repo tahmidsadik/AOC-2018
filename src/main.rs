@@ -4,6 +4,7 @@ use std::io::prelude::*;
 
 mod day2;
 mod day3;
+mod day5;
 
 fn read_input_from_file(filename: String) -> String {
     let mut file_contents = String::new();
@@ -59,23 +60,34 @@ fn main() {
     let filename = "puzzle1-input.txt";
     let puzzle_input_2 = "puzzle-input-2.txt";
     let puzzle_input_3 = "input3.txt";
+    let puzzle_input_5 = "input5.txt";
 
-    println!("Solution to problem 1 = {}", p1(String::from(filename)));
-    println!("Solution to problem 2 = {}", p2(String::from(filename)));
+    // println!("Solution to problem 1 = {}", p1(String::from(filename)));
+    // println!("Solution to problem 2 = {}", p2(String::from(filename)));
+    // println!(
+    //     "Solution to problem 3 = {}",
+    //     day2::day2_problem1(String::from(puzzle_input_2))
+    // );
+    // println!(
+    //     "Solution to problem 4 = {}",
+    //     day2::day2_problem2(String::from(puzzle_input_2))
+    // );
+    // println!(
+    //     "Solution to problem 5 = {}",
+    //     day3::solve_problem_1(puzzle_input_3)
+    // );
+    // println!(
+    //     "Solution to problem 6 = {}",
+    //     day3::solve_problem_2(puzzle_input_3)
+    // );
+
+    // println!(
+    //     "Solution to problem 9 = {}",
+    //     day5::solve_problem_1(puzzle_input_3)
+    // );
+
     println!(
-        "Solution to problem 3 = {}",
-        day2::day2_problem1(String::from(puzzle_input_2))
-    );
-    println!(
-        "Solution to problem 4 = {}",
-        day2::day2_problem2(String::from(puzzle_input_2))
-    );
-    println!(
-        "Solution to problem 5 = {}",
-        day3::solve_problem_1(puzzle_input_3)
-    );
-    println!(
-        "Solution to problem 6 = {}",
-        day3::solve_problem_2(puzzle_input_3)
+        "Solution to problem 10 = {}",
+        day5::solve_problem_2(puzzle_input_5)
     );
 }

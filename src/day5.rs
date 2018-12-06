@@ -61,97 +61,64 @@ pub fn solve_problem_2(filename: &str) -> i32 {
         's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     ];
 
-    let filtered_chars: Vec<Vec<char>> = char_range
+    let filtered_chars: Vec<Vec<&char>> = char_range
         .iter()
-        .map(move |c: char| -> Vec<char> {
-            return freshChars.iter().filter(move |ck| c != ck).collect();
-        })
-
-    let counts: Vec<i32> = filtered_chars
-        .into_iter()
-        .map(|char_list| {
-            let mut char_list_clone = char_list.clone();
-            let mut i = 0;
-            while i < char_list.len() {
-                if i >= char_list.len() {
-                    break;
-                }
-                let c = char_list[i];
-                let cy = char_list[i + 1];
-
-                if (c.is_uppercase() && cy.is_lowercase())
-                    || (c.is_lowercase() && cy.is_uppercase())
-                {
-                    if c.to_lowercase().to_string() == cy.to_lowercase().to_string() {
-                        char_list_clone[i] = &'0';
-                        char_list_clone[i + 1] = &'0';
-                        i += 2;
-                        continue;
-                    }
-                }
-                i += 1;
-            }
-            return 0;
+        .map(|c: &char| -> Vec<&char> {
+            return freshChars.iter().filter(move |&ck| c != ck).collect();
         })
         .collect();
 
-    let mut current_len = 50000;
+    // let xx: String = filtered_chars[0].iter().map(|c| c.to_string()).collect();
+    // println!("{}", xx);
 
-    let mut counts: Vec<i32> = Vec::new();
-
-    for character in char_range {
-        chars = freshChars
-            .clone()
-            .into_iter()
-            .filter(|c| *c != character && *c.to_string() != character.to_uppercase().to_string())
-            .collect();
-
-        current_len = chars.len();
-
-        for j in 0..1000 {
-            println!("count = {}, chars len {}", current_len, chars.len());
+    let counts: Vec<i32> = filtered_chars
+        .into_iter()
+        .map(|clist| {
+            let mut clist_clone = clist.clone();
+            let mut grid = clist.clone();
             let mut i = 0;
-            while i < chars.len() - 1 {
-                println!("index = {}, chars len {}", i, chars.len());
+            let mut current_len = clist_clone.len();
 
-                if (i >= chars.len()) {
-                    break;
-                }
-                let c = chars[i];
-                let cy = chars[i + 1];
-
-                if (c.is_uppercase() && cy.is_lowercase())
-                    || (c.is_lowercase() && cy.is_uppercase())
-                {
-                    if c.to_lowercase().to_string() == cy.to_lowercase().to_string() {
-                        charsClone[i] = '0';
-                        charsClone[i + 1] = '0';
-                        i += 2;
-                        continue;
+            let mut iteration_count = 1;
+            loop {
+                let len = clist_clone.len();
+                while i < len - 1 {
+                    if i >= len {
+                        break;
                     }
+                    let c = clist_clone[i];
+                    let cy = clist_clone[i + 1];
+
+                    if (c.is_uppercase() && cy.is_lowercase())
+                        || (c.is_lowercase() && cy.is_uppercase())
+                    {
+                        if c.to_lowercase().to_string() == cy.to_lowercase().to_string() {
+                            grid[i] = &'0';
+                            grid[i + 1] = &'0';
+                            i += 2;
+                            continue;
+                        }
+                    }
+                    i += 1;
                 }
-                i += 1;
+
+                // let xx: String = grid.iter().map(|c| c.to_string()).collect();
+                // println!("printing grid {}", xx);
+
+                clist_clone = grid.clone().into_iter().filter(|fc| *fc != &'0').collect();
+
+                grid = clist_clone.clone();
+                let new_len = clist_clone.len();
+                if current_len == new_len {
+                    println!("breaking with iteration count {}", iteration_count);
+                    break;
+                } else {
+                    current_len = new_len;
+                    iteration_count += 1;
+                }
             }
-
-            //
-            chars = charsClone
-                .clone()
-                .into_iter()
-                .filter(|c| *c != '0')
-                .collect();
-
-            charsClone = chars.clone();
-            if current_len == chars.len() {
-                break;
-            } else {
-                current_len = chars.len();
-            }
-        }
-
-        counts.push(current_len as i32);
-    }
-
-    return counts
-        .iter()
-        .fold(50000, |acc, n| if n < &acc { *n } else { acc });
+            return current_len as i32;
+        })
+        .collect();
+    return 10;
 }
